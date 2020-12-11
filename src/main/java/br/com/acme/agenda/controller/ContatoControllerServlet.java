@@ -1,0 +1,118 @@
+package br.com.acme.agenda.controller;
+
+import br.com.acme.agenda.model.Contato;
+import br.com.acme.agenda.service.ContatoService;
+import br.com.acme.agenda.service.ContatoServiceImpl;
+import br.com.acme.agenda.utils.Constantes;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+@WebServlet("/contatoControllerServlet")
+public class ContatoControllerServlet extends HttpServlet {
+
+	private static final long serialVersionUID = 1L;
+
+	private Contato contato;
+	private ContatoService service;
+	private List<Contato> contatos;
+
+	public ContatoControllerServlet() {
+		this.service = new ContatoServiceImpl();
+		this.contatos = new ArrayList<Contato>();
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		String idContato = request.getParameter("id");
+		String actionBotao = request.getParameter("actionBotao");
+
+		String temp = actionBotao == null ? "null" : actionBotao;
+
+		switch (temp) {
+		case "":
+			if (idContato != null && this.service.buscarPorIdContato(Long.parseLong(idContato)).isAtivo()) {
+				this.service.ativarDesativarContato(Long.parseLong(idContato));
+				request.setAttribute("ativardesativar", "Contato desativado com sucesso!!!");
+			} else if (idContato != null && !this.service.buscarPorIdContato(Long.parseLong(idContato)).isAtivo()) {
+				this.service.ativarDesativarContato(Long.parseLong(idContato));
+				request.setAttribute("ativardesativar", "Contato ativado com sucesso!!!");
+			}
+			break;
+		case "editar":
+			RequestDispatcher rdEditar = request.getRequestDispatcher(Constantes.CADASTRAR_CONTATOS);
+			this.contato = this.service.buscarPorIdContato(Long.parseLong(idContato));
+			request.setAttribute("contato", this.contato);
+			request.setAttribute("tipo", "editar");
+			rdEditar.forward(request, response);
+			break;
+		case "visualizar":
+			RequestDispatcher rdVisualizar = request.getRequestDispatcher(Constantes.CADASTRAR_CONTATOS);
+			this.contato = this.service.buscarPorIdContato(Long.parseLong(idContato));
+			request.setAttribute("contato", this.contato);
+			request.setAttribute("tipo", "visualizar");
+			rdVisualizar.forward(request, response);
+			break;
+		case "excluir":
+			this.service.remover(Long.parseLong(idContato));
+			break;
+
+		default:
+
+		}
+
+		this.contatos = this.service.listarContatos();
+		RequestDispatcher rd = request.getRequestDispatcher(Constantes.LISTAR_CONTATOS);
+		request.setAttribute("contatos", this.contatos);
+		rd.forward(request, response);
+
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		// INSTANCIEI O CONTATO AQUI
+		this.contato = new Contato();
+
+		// RECUPEREI OS DADOS DO REQUEST / FORMUL�RIO
+		String nome = request.getParameter("nome");
+		String email = request.getParameter("email");
+		String telefone = request.getParameter("telefone");
+
+		// SET OS ATRIBUTOS NA INSTANCIA DE CONTATO
+		this.contato.setNome(nome);
+		this.contato.setEmail(email);
+		this.contato.setTelefone(telefone);
+		this.contato.isAtivo();
+
+		if (!validEmail(email)) {
+			// CHAMO A CAMADA DE SERVICE PARA SALVAR O CONTATO
+			this.service.salvar(this.contato);
+			// REDIRECIONANDO PARA A LISTAGEM DE CONTATOS
+			request.setAttribute("sucesso", "Contato " + nome + " cadastrado com sucesso");
+
+		} else {
+			request.setAttribute("contatoExiste", "Contato com e-mail " + email + " j� existe");
+		}
+
+		doGet(request, response);
+	}
+
+	private boolean validEmail(String email) {
+		if (this.service.buscaPorEmail(email) != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+}
