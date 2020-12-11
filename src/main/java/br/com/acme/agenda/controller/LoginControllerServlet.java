@@ -28,14 +28,15 @@ public class LoginControllerServlet extends HttpServlet {
 		 */
 
 		if (login.equals("valdir@gmail.com") && senha.equals("123")) {
-			HttpSession sessaoUsuario = request.getSession();
+                        // Usado o HttpSession para deixar o login ativo quando entra no sistema
+                        HttpSession sessaoUsuario = request.getSession();
 			sessaoUsuario.setAttribute("sessaoUsuario", login);
 			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 			request.setAttribute("login", login);
 			rd.forward(request, response);
 		} else {
 			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-			request.setAttribute("loginErro", "Cliente não existe na base de dados!");
+			request.setAttribute("loginErro", "Cliente não existe na base de dados!"); // Parâmetro usado no JSP
 			rd.forward(request, response);
 		}
 

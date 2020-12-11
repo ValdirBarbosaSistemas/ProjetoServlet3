@@ -5,6 +5,7 @@ import javax.persistence.Persistence;
 
 public class JPAUtil {
 
+        // Implementação da classe para facilitar a criação das transações
 	private static EntityManagerFactory factory;
 	
 	public static EntityManagerFactory getEntityManagerFactory() {

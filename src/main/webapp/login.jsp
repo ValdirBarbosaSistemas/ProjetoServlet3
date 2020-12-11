@@ -95,7 +95,7 @@
 	<!-- Custom scripts for all pages-->
 	<script
 		src="${pageContext.request.contextPath}/assets/admin/js/sb-admin-2.min.js"></script>
-
+                <!<!-- GRANDE PARTE DO LOGIN FORAM FEITOS COM JSTL PARA O MELHOR ENCAMINHAMENTO DAS PÁGINAS QUE ERAM NECESSÁRIAS -->
 </body>
 
 </html>

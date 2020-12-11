@@ -81,7 +81,7 @@
               </div>
             </div>
           </div>
-     	
+                    <!-- GRANDE PARTE DA LISTA DE CONTATOS FORAM FEITOS COM JSTL PARA O MELHOR ENCAMINHAMENTO DAS PAGINAS -->
      </section>
 					
 	</jsp:attribute>

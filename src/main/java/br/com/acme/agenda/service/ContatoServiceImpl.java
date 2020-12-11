@@ -10,6 +10,7 @@ public class ContatoServiceImpl implements ContatoService {
 
 	private ContatoDao contatoDao;
 
+        // Implementação dos métodos feitos no ContatoService
 	public ContatoServiceImpl() {
 		contatoDao = new ContatoDaoImpl();
 	}

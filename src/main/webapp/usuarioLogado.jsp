@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 </head>
 <body>
+    <!<!-- Implementação do HTTPSESSION realizado para a entrada no login -->
 	<c:choose>
 		<c:when test="${sessaoUsuario != null}">
 			Usuario: ${sessaoUsuario}

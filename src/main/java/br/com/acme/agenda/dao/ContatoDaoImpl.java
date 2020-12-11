@@ -9,6 +9,7 @@ import java.util.List;
 
 public class ContatoDaoImpl implements ContatoDao {
 
+        // Implementação dos métodos feitos no ContatoDao
 	@Override
 	public void salvar(Contato contato) {
 		EntityManager entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
@@ -81,6 +82,7 @@ public class ContatoDaoImpl implements ContatoDao {
 	@Override
 	public void ativarDesativarContato(Long id) {
 
+                // Implementação de Ativar/Desativar o contato
 		EntityManager entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
 		entityManager.getTransaction().begin();
 		Contato contatoQueTavaNoBanco = entityManager.find(Contato.class, id);

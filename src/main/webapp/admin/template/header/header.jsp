@@ -35,7 +35,8 @@
 
 		<li class="nav-item dropdown no-arrow"><a class="nav-link dropdown-toggle" href="#" id="userDropdown"
 			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-			<jsp:include page="/usuarioLogado.jsp"></jsp:include>
+			<!-- Implementação do login para quando entrar no sistema aparecer o nome logado -->
+                        <jsp:include page="/usuarioLogado.jsp"></jsp:include>
 			</span> 
 					<img class="img-profile rounded-circle"	src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
 		</a>

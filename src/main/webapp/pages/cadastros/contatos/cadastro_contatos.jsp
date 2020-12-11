@@ -42,7 +42,7 @@
             </div>
           </div>
         </div>
-		 			
+            <!-- GRANDE PARTE DO CADASTRO FOI FEITO COM IMPLEMENTAÇÕES DO JSTL COMO JSP PARA O MELHOR ENCAMINHAMENTO DAS PÁGINAS -->	
 	</jsp:attribute>
 
 </mt:admin_template>
